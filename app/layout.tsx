@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+<<<<<<< HEAD
 
+=======
+>>>>>>> 92f950e (Refactor main layout file)
 
 //components
 import Navbar from '@/components/navbar/Navbar'
