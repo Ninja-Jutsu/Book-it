@@ -13,7 +13,6 @@ const initialState = {
 export default function FormContainer({ action, children }: { action: actionFunction; children: React.ReactNode }) {
   const [state, formAction] = useFormState(action, initialState)
   const { toast } = useToast()
-
   useEffect(() => {
     if (state.message) {
       toast({

@@ -1,10 +1,12 @@
 import FormInput from '@/components/form/FormInput'
 import { SubmitButton } from '@/components/form/Buttons'
+import FormContainer from '@/components/form/FormContainer'
 
-async function createdProfileAction(formData: FormData) {
+async function createProfileAction(prevState: any, formData: FormData) {
   'use server'
   const firstName = formData.get('firstName') as string
   console.log(firstName)
+  return { message: 'profile created' }
 }
 
 function CreateProfilePage() {
@@ -12,14 +14,29 @@ function CreateProfilePage() {
     <section>
       <h1 className='text-2xl font-semibold mb-8 capitalize'>new user</h1>
       <div className='border p-8 rounded-md max-w-lg'>
-        <form action={createdProfileAction}>
-          <FormInput
-            inputId={'firstName'}
-            label='First Name'
-            inputType='text'
+        <FormContainer action={createProfileAction}>
+          <div className='grid gap-4 mt-4'>
+            <FormInput
+              inputId={'firstName'}
+              label='First Name'
+              inputType='text'
+            />
+            <FormInput
+              inputId={'lastName'}
+              label='Last Name'
+              inputType='text'
+            />
+            <FormInput
+              inputId={'username'}
+              label='Username'
+              inputType='text'
+            />
+          </div>
+          <SubmitButton
+            text='create profile'
+            className='mt-8'
           />
-          <SubmitButton />
-        </form>
+        </FormContainer>
       </div>
     </section>
   )
