@@ -3,7 +3,7 @@ import prisma from '@/prisma/client'
 import { auth, clerkClient, currentUser } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { imageSchema, profileSchema, validateWithZodSchema } from './schemas'
+import { imageSchema, profileSchema, propertySchema, validateWithZodSchema } from './schemas'
 import { uploadImage } from './supabase'
 
 async function getCurrentUser() {
@@ -117,4 +117,15 @@ export const updateProfileImageAction = async (prevState: any, formData: FormDat
   } catch (error) {
     return renderError(error)
   }
+}
+
+export const createPropertyAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
+  const user = await getCurrentUser()
+  try {
+    const rawData = Object.fromEntries(formData)
+    const validateData = validateWithZodSchema(propertySchema, rawData)
+  } catch (error) {
+    return renderError(error)
+  }
+  return { message: '' }
 }
