@@ -96,3 +96,7 @@ export async function updateProfileAction(prevState: any, formData: FormData): P
     return renderError(error)
   }
 }
+
+export const updateProfileImageAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
+  return { message: 'Profile image updated successfully' }
+}
