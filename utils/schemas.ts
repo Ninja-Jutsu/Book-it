@@ -53,15 +53,10 @@ export const propertySchema = z.object({
     message: 'price must be a positive number.',
   }),
   category: z.string(),
-  description: z.string().refine(
-    (description) => {
-      const wordCount = description.split(' ').length
-      return wordCount >= 10 && wordCount <= 1000
-    },
-    {
-      message: 'description must be between 10 and 1000 words.',
-    }
-  ),
+  description: z
+    .string()
+    .min(10, { message: 'Description must be less more 10 chars' })
+    .max(1000, { message: 'Description must be less than 1000 chars' }),
   country: z.string(),
   guests: z.coerce.number().int().min(0, {
     message: 'guest amount must be a positive number.',
