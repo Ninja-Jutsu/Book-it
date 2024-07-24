@@ -22,7 +22,7 @@ async function PropertiesContainer({ category, search }: Props) {
     )
   }
 
-  return <PropertiesList />
+  return <PropertiesList properties={properties} />
 }
 
 export default PropertiesContainer
