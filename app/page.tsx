@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 function HomePage() {
   return (
@@ -10,7 +11,7 @@ function HomePage() {
         size='lg'
         className='capitalize m-8'
       >
-        add
+        <Link href='/profile/create'>Create</Link>
       </Button>
     </div>
   )
