@@ -12,6 +12,11 @@ async function getCurrentUser() {
   return user
 }
 
+function renderError(error: unknown): { message: string } {
+  console.log(error)
+  return { message: error instanceof Error ? error.message : 'An error occurred' }
+}
+
 export async function createProfileAction(prevState: any, formData: FormData) {
   try {
     // get the currentUser
@@ -40,7 +45,7 @@ export async function createProfileAction(prevState: any, formData: FormData) {
     })
   } catch (error) {
     console.log(error)
-    return { message: error instanceof Error ? error.message : 'An error occurred' }
+    return renderError(error)
   }
   // if all good redirect to home page
   redirect('/')
@@ -74,5 +79,19 @@ export async function fetchProfileAction() {
 }
 
 export async function updateProfileAction(prevState: any, formData: FormData): Promise<{ message: string }> {
-  return { message: 'update profile action' }
+  const user = await getCurrentUser()
+  try {
+    const rawData = Object.fromEntries(formData)
+    const validatedFields = profileSchema.parse(rawData)
+    await prisma.profile.update({
+      where: {
+        clerkId: user.id,
+      },
+      data: validatedFields,
+    })
+    revalidatePath('/profile', 'page')
+    return { message: 'Profile updated successfully' }
+  } catch (error) {
+    return renderError(error)
+  }
 }
