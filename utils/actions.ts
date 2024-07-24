@@ -3,7 +3,7 @@ import prisma from '@/prisma/client'
 import { auth, clerkClient, currentUser } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { profileSchema, validateWithZodSchema } from './schemas'
+import { imageSchema, profileSchema, validateWithZodSchema } from './schemas'
 
 async function getCurrentUser() {
   const user = await currentUser()
@@ -98,5 +98,8 @@ export async function updateProfileAction(prevState: any, formData: FormData): P
 }
 
 export const updateProfileImageAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
+  const image = formData.get('image') as File
+  const validateImage = validateWithZodSchema(imageSchema, { image })
+  console.log(validateImage)
   return { message: 'Profile image updated successfully' }
 }
