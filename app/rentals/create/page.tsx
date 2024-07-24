@@ -7,6 +7,7 @@ import CategoriesInput from '@/components/form/CategoriesInput'
 import TextAreaInput from '@/components/form/TextAreaInput'
 import CountriesInput from '@/components/form/CountriesInput'
 import ImageInput from '@/components/form/ImageInput'
+import CounterInput from '@/components/form/CounterInput'
 
 function CreateRentalPage() {
   return (
@@ -42,6 +43,11 @@ function CreateRentalPage() {
             <CountriesInput />
             <ImageInput />
           </div>
+          <h3 className='text-lg mt-8 mb-4 font-medium'>Accommodation details</h3>
+          <CounterInput label='guests' />
+          <CounterInput label='bedrooms' />
+          <CounterInput label='beds' />
+          <CounterInput label='baths' />
           <SubmitButton
             text='create rental'
             className='mt-12'
