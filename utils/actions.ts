@@ -3,7 +3,7 @@ import prisma from '@/prisma/client'
 import { auth, clerkClient, currentUser } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { profileSchema } from './schemas'
+import { profileSchema, validateWithZodSchema } from './schemas'
 
 async function getCurrentUser() {
   const user = await currentUser()
@@ -25,7 +25,7 @@ export async function createProfileAction(prevState: any, formData: FormData) {
 
     //validate entries
     const rawData = Object.fromEntries(formData)
-    const validatedFields = profileSchema.parse(rawData)
+    const validatedData = validateWithZodSchema(profileSchema, rawData)
 
     // create a profile
     await prisma.profile.create({
@@ -33,7 +33,7 @@ export async function createProfileAction(prevState: any, formData: FormData) {
         clerkId: user.id,
         email: user.emailAddresses[0].emailAddress,
         profileImage: user.imageUrl ?? '',
-        ...validatedFields,
+        ...validatedData,
       },
     })
 
@@ -82,17 +82,13 @@ export async function updateProfileAction(prevState: any, formData: FormData): P
   const user = await getCurrentUser()
   try {
     const rawData = Object.fromEntries(formData)
-    const validatedFields = profileSchema.safeParse(rawData)
-    if (!validatedFields.success) {
-      const errors = validatedFields.error.errors.map((error) => error.message)
-      throw new Error(errors[0])
-    }
+    const validatedData = validateWithZodSchema(profileSchema, rawData)
 
     await prisma.profile.update({
       where: {
         clerkId: user.id,
       },
-      data: validatedFields.data,
+      data: validatedData,
     })
     revalidatePath('/profile', 'page')
     return { message: 'Profile updated successfully' }
