@@ -8,6 +8,7 @@ import TextAreaInput from '@/components/form/TextAreaInput'
 import CountriesInput from '@/components/form/CountriesInput'
 import ImageInput from '@/components/form/ImageInput'
 import CounterInput from '@/components/form/CounterInput'
+import AmenitiesInput from '@/components/form/Amenities'
 
 function CreateRentalPage() {
   return (
@@ -48,6 +49,8 @@ function CreateRentalPage() {
           <CounterInput label='bedrooms' />
           <CounterInput label='beds' />
           <CounterInput label='baths' />
+          <h3 className='text-lg mt-8 mb-4 font-medium'>Amenities</h3>
+          <AmenitiesInput />
           <SubmitButton
             text='create rental'
             className='mt-12'
