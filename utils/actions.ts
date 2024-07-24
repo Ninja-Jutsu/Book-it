@@ -4,6 +4,7 @@ import { auth, clerkClient, currentUser } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { imageSchema, profileSchema, validateWithZodSchema } from './schemas'
+import { uploadImage } from './supabase'
 
 async function getCurrentUser() {
   const user = await currentUser()
@@ -98,8 +99,22 @@ export async function updateProfileAction(prevState: any, formData: FormData): P
 }
 
 export const updateProfileImageAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
+  const user = await getCurrentUser()
   const image = formData.get('image') as File
-  const validateImage = validateWithZodSchema(imageSchema, { image })
-  console.log(validateImage)
-  return { message: 'Profile image updated successfully' }
+  try {
+    const imageData = validateWithZodSchema(imageSchema, { image })
+    const imgUrl = await uploadImage(imageData.image)
+    await prisma.profile.update({
+      where: {
+        clerkId: user.id,
+      },
+      data: {
+        profileImage: imgUrl,
+      },
+    })
+    revalidatePath('/profile', 'page')
+    return { message: 'Profile image updated successfully' }
+  } catch (error) {
+    return renderError(error)
+  }
 }
