@@ -9,32 +9,45 @@ export async function createProfileAction(prevState: any, formData: FormData) {
   try {
     // get the currentUser
     const user = await currentUser()
-    // if (!user) throw new Error('please log to create a profile')
-    // this is for typescript or use ! before user
-    // this is a protected route, there is definitely a user if we get here
+    if (!user) throw new Error('please log to create a profile')
 
-    // extract form data
+    //validate entries
     const rawData = Object.fromEntries(formData)
     const validatedFields = profileSchema.parse(rawData)
 
     // create a profile
     await prisma.profile.create({
       data: {
-        clerkId: user!.id,
-        email: user!.emailAddresses[0].emailAddress,
-        profileImage: user!.imageUrl ?? '',
+        clerkId: user.id,
+        email: user.emailAddresses[0].emailAddress,
+        profileImage: user.imageUrl ?? '',
         ...validatedFields,
       },
     })
-    await clerkClient.users.updateUserMetadata(user!.id, {
+
+    //update user metadata in clerk users
+    await clerkClient.users.updateUserMetadata(user.id, {
       privateMetadata: {
         hasProfile: true,
       },
     })
-    // return { message: 'Profile created' }
   } catch (error) {
     console.log(error)
     return { message: error instanceof Error ? error.message : 'An error occurred' }
   }
+  // if all good redirect to home page
   redirect('/')
+}
+
+export async function fetchProfileImage() {
+  const user = await currentUser()
+  if (!user) return null
+  const profile = await prisma.profile.findUnique({
+    where: { clerkId: user.id },
+    select: {
+      profileImage: true,
+    },
+  })
+
+  return profile?.profileImage
 }
