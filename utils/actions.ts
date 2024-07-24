@@ -82,12 +82,17 @@ export async function updateProfileAction(prevState: any, formData: FormData): P
   const user = await getCurrentUser()
   try {
     const rawData = Object.fromEntries(formData)
-    const validatedFields = profileSchema.parse(rawData)
+    const validatedFields = profileSchema.safeParse(rawData)
+    if (!validatedFields.success) {
+      const errors = validatedFields.error.errors.map((error) => error.message)
+      throw new Error(errors[0])
+    }
+
     await prisma.profile.update({
       where: {
         clerkId: user.id,
       },
-      data: validatedFields,
+      data: validatedFields.data,
     })
     revalidatePath('/profile', 'page')
     return { message: 'Profile updated successfully' }
