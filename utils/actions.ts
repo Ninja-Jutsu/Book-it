@@ -5,6 +5,13 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { profileSchema } from './schemas'
 
+async function getCurrentUser() {
+  const user = await currentUser()
+  if (!user) throw new Error('You must be logged in to access this route')
+  if (!user.privateMetadata.hasProfile) redirect('/profile/create')
+  return user
+}
+
 export async function createProfileAction(prevState: any, formData: FormData) {
   try {
     // get the currentUser
@@ -50,4 +57,22 @@ export async function fetchProfileImage() {
   })
 
   return profile?.profileImage
+}
+
+export async function fetchProfileAction() {
+  const user = await getCurrentUser()
+
+  const profile = await prisma.profile.findUnique({
+    where: {
+      clerkId: user.id,
+    },
+  })
+
+  if (!profile) redirect('/profile/create')
+
+  return profile
+}
+
+export async function updateProfileAction(prevState: any, formData: FormData): Promise<{ message: string }> {
+  return { message: 'update profile action' }
 }

@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation'
 
 async function CreateProfilePage() {
   const user = await currentUser()
-  if (user?.privateMetadata?.hasProfile) redirect('/profile/update')
+  if (user?.privateMetadata?.hasProfile) redirect('/profile/create')
   return (
     <section>
       <h1 className='text-2xl font-semibold mb-8 capitalize'>new user</h1>
