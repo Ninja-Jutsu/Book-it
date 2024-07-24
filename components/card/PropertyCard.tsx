@@ -40,7 +40,9 @@ function PropertyCard({
           {/* country and flag */}
         </div>
       </Link>
-      <div className='absolute top-5 right-5 z-5'>{/* favorite toggle button */}</div>
+      <div className='absolute top-5 right-5 z-5'>
+        <FavoriteToggleBtn propertyId={propertyId} />
+      </div>
     </article>
   )
 }
