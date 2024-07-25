@@ -211,3 +211,26 @@ export async function toggleFavoriteAction(prevState: {
     return renderError(error)
   }
 }
+
+export async function fetchFavorites() {
+  const user = await getCurrentUser()
+  const favorites = await prisma.favorite.findMany({
+    where: {
+      profileId: user.id,
+    },
+    select: {
+      property: {
+        select: {
+          id: true,
+          image: true,
+          name: true,
+          tagline: true,
+          country: true,
+          price: true,
+        },
+      },
+    },
+  })
+
+  return favorites.map((favorite) => favorite.property)
+}
