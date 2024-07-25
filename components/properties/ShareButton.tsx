@@ -1,15 +1,15 @@
 'use client'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Button } from '../ui/button'
 import { LuShare2 } from 'react-icons/lu'
 import {
-  EmailShareButton,
-  LinkedinShareButton,
-  FacebookShareButton,
   EmailIcon,
+  EmailShareButton,
   LinkedinIcon,
-  FacebookIcon,
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton,
 } from 'react-share'
+import { Button } from '../ui/button'
 
 function ShareButton({ propertyId, name }: { propertyId: string; name: string }) {
   const url = process.env.NEXT_PUBLIC_WEBSITE_URL
@@ -31,15 +31,15 @@ function ShareButton({ propertyId, name }: { propertyId: string; name: string })
         sideOffset={10}
         className='flex items-center gap-x-2 justify-center w-full'
       >
-        <FacebookShareButton
+        <TwitterShareButton
           url={shareLink}
           title={name}
         >
-          <FacebookIcon
+          <TwitterIcon
             size={32}
             round
           />
-        </FacebookShareButton>
+        </TwitterShareButton>
         <LinkedinShareButton
           url={shareLink}
           title={name}
