@@ -188,7 +188,26 @@ export async function toggleFavoriteAction(prevState: {
   favoriteId: string | null
   propertyId: string
 }) {
-  const { favoriteId, pathName, propertyId } = prevState
-  console.log(favoriteId, pathName, propertyId)
-  return { message: 'toggle favorite' }
+  const { favoriteId, propertyId, pathName } = prevState
+  const user = await getCurrentUser()
+  try {
+    if (favoriteId) {
+      await prisma.favorite.delete({
+        where: {
+          id: favoriteId,
+        },
+      })
+    } else {
+      await prisma.favorite.create({
+        data: {
+          propertyId,
+          profileId: user.id,
+        },
+      })
+    }
+    revalidatePath(pathName)
+    return { message: favoriteId ? 'Removed from Faves' : 'Added to Faves' }
+  } catch (error) {
+    return renderError(error)
+  }
 }
