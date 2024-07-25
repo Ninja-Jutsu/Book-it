@@ -1,5 +1,6 @@
 import FavoriteToggleBtn from '@/components/card/FavoriteToggleBtn'
 import PropertyRating from '@/components/card/PropertyRating'
+import BookingCalender from '@/components/properties/BookingCalender'
 import BreadCrumbs from '@/components/properties/BreadCrumbs'
 import ImageContainer from '@/components/properties/ImageContainer'
 import ShareButton from '@/components/properties/ShareButton'
@@ -34,15 +35,18 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
       />
       <section className='lg:grid lg:grid-cols-12 gap-x-12 mt-12'>
         <div className='lg:col-span-8'>
-          <div className='flex gap-4 items-center'>
-            <h1 className='text-xl font-bold'>{name}</h1>
+          <div className='flex gap-x-4 items-center'>
+            <h1 className='text-xl font-bold'>{property.name}</h1>
             <PropertyRating
+              inPage
               propertyId={propertyId}
-              inPage={true}
             />
           </div>
         </div>
-        <div className='lg:col-span-4 flex flex-col items-center'>{/* calender */}</div>
+        <div className='lg:col-span-4 flex flex-col items-center'>
+          {/* calendar */}
+          <BookingCalender />
+        </div>
       </section>
     </section>
   )
