@@ -234,3 +234,12 @@ export async function fetchFavorites() {
 
   return favorites.map((favorite) => favorite.property)
 }
+
+export async function fetchPropertyDetails(id: string) {
+  return await prisma.property.findUnique({
+    where: { id },
+    include: {
+      profile: true,
+    },
+  })
+}
