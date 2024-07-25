@@ -5,12 +5,13 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { imageSchema, profileSchema, propertySchema, validateWithZodSchema } from './schemas'
 import { uploadImage } from './supabase'
-import delay from 'delay'
 
-async function getCurrentUser() {
+export async function getCurrentUser() {
   const user = await currentUser()
   if (!user) throw new Error('You must be logged in to access this route')
-  if (!user.privateMetadata.hasProfile) redirect('/profile/create')
+  if (user.privateMetadata.hasProfile) {
+    redirect('/')
+  }
   return user
 }
 
@@ -66,7 +67,7 @@ export async function fetchProfileImage() {
   return profile?.profileImage
 }
 
-export async function fetchProfileAction() {
+export async function fetchProfile() {
   const user = await getCurrentUser()
 
   const profile = await prisma.profile.findUnique({
