@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { imageSchema, profileSchema, propertySchema, validateWithZodSchema } from './schemas'
 import { uploadImage } from './supabase'
+import delay from 'delay'
 
 async function getCurrentUser() {
   const user = await currentUser()
