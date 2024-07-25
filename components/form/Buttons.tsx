@@ -1,4 +1,6 @@
 'use client'
+import { SignInButton } from '@clerk/nextjs'
+import { FaRegHeart, FaHeart } from 'react-icons/fa'
 
 import { ReloadIcon } from '@radix-ui/react-icons'
 import { Button } from '@/components/ui/button'
@@ -28,5 +30,21 @@ export function SubmitButton({ className, text = 'submit', size = 'lg' }: Props)
         text
       )}
     </Button>
+  )
+}
+
+export const CardSignInButton = () => {
+  return (
+    <SignInButton mode='modal'>
+      <Button
+        type='button'
+        size='icon'
+        variant='outline'
+        className='p-2 cursor-pointer'
+        asChild
+      >
+        <FaRegHeart />
+      </Button>
+    </SignInButton>
   )
 }
