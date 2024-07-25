@@ -7,8 +7,10 @@ import PropertyDetails from '@/components/properties/PropertyDetails'
 import ShareButton from '@/components/properties/ShareButton'
 import UserInfo from '@/components/properties/UserInfo'
 import { fetchPropertyDetails } from '@/utils/actions'
+import { Separator } from '@/components/ui/separator'
 import { redirect } from 'next/navigation'
 import React from 'react'
+import Description from '@/components/properties/Description'
 
 async function PropertyDetailsPage({ params: { id } }: { params: { id: string } }) {
   const property = await fetchPropertyDetails(id)
@@ -16,7 +18,7 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
   if (!property) redirect('/')
 
   // destruct property details
-  const { id: propertyId, baths, bedrooms, beds, guests, tagline, name, image } = property
+  const { id: propertyId, baths, bedrooms, beds, guests, tagline, name, image, description } = property
 
   // destruct profile details
   const {
@@ -51,6 +53,8 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
           </div>
           <PropertyDetails details={{ baths, bedrooms, beds, guests }} />
           <UserInfo profile={{ firstName, profileImage }} />
+          <Separator className='mt-4' />
+          <Description description={description} />
         </div>
         <div className='lg:col-span-4 flex flex-col items-center'>
           {/* calendar */}
