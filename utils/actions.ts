@@ -127,7 +127,7 @@ export const createPropertyAction = async (prevState: any, formData: FormData): 
     const file = formData.get('image') as File
 
     const validatedFields = validateWithZodSchema(propertySchema, rawData)
-    validatedFields.name = validatedFields.name.toLowerCase()
+    // validatedFields.name = validatedFields.name.toLowerCase()
     const validatedFile = validateWithZodSchema(imageSchema, { image: file })
     const fullPath = await uploadImage(validatedFile.image)
 
@@ -149,7 +149,7 @@ export async function fetchProperties({ search = '', category }: { search?: stri
   const properties = await prisma.property.findMany({
     where: {
       category,
-      OR: [{ name: { contains: search.toLowerCase() } }, { tagline: { contains: search.toLowerCase() } }],
+      OR: [{ name: { contains: search } }, { tagline: { contains: search } }],
     },
     select: {
       id: true,
