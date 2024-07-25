@@ -12,6 +12,13 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 import Description from '@/components/properties/Description'
 import Amenities from '@/components/properties/Amenities'
+import dynamic from 'next/dynamic'
+import { Skeleton } from '@/components/ui/skeleton'
+
+const DynamicMap = dynamic(() => import('@/components/properties/PropertyMap'), {
+  ssr: false,
+  loading: () => <Skeleton className='h-[400px] w-full' />,
+})
 
 async function PropertyDetailsPage({ params: { id } }: { params: { id: string } }) {
   const property = await fetchPropertyDetails(id)
@@ -19,7 +26,19 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
   if (!property) redirect('/')
 
   // destruct property details
-  const { id: propertyId, baths, bedrooms, beds, guests, tagline, name, image, description, amenities } = property
+  const {
+    id: propertyId,
+    baths,
+    bedrooms,
+    beds,
+    guests,
+    tagline,
+    name,
+    image,
+    description,
+    amenities,
+    country,
+  } = property
 
   // destruct profile details
   const {
@@ -59,6 +78,8 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
           <Description description={description} />
           <Separator className='mt-4' />
           <Amenities amenities={amenities} />
+          <Separator className='mt-4' />
+          <DynamicMap countryCode={country} />
         </div>
         <div className='lg:col-span-4 flex flex-col items-center'>
           {/* calendar */}
