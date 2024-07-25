@@ -33,7 +33,7 @@ export function SubmitButton({ className, text = 'submit', size = 'lg' }: Props)
   )
 }
 
-export const CardSignInButton = () => {
+export function CardSignInButton() {
   return (
     <SignInButton mode='modal'>
       <Button
@@ -46,5 +46,18 @@ export const CardSignInButton = () => {
         <FaRegHeart />
       </Button>
     </SignInButton>
+  )
+}
+
+export function CardSubmitButton({ isFavorite }: { isFavorite: boolean }) {
+  const { pending } = useFormStatus()
+  return (
+    <Button
+      size='icon'
+      variant='outline'
+      className='p-2 cursor-pointer'
+    >
+      {pending ? <ReloadIcon className='animate-spin' /> : isFavorite ? <FaHeart /> : <FaRegHeart />}
+    </Button>
   )
 }
