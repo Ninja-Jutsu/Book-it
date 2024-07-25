@@ -11,6 +11,7 @@ import { Separator } from '@/components/ui/separator'
 import { redirect } from 'next/navigation'
 import React from 'react'
 import Description from '@/components/properties/Description'
+import Amenities from '@/components/properties/Amenities'
 
 async function PropertyDetailsPage({ params: { id } }: { params: { id: string } }) {
   const property = await fetchPropertyDetails(id)
@@ -18,12 +19,13 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
   if (!property) redirect('/')
 
   // destruct property details
-  const { id: propertyId, baths, bedrooms, beds, guests, tagline, name, image, description } = property
+  const { id: propertyId, baths, bedrooms, beds, guests, tagline, name, image, description, amenities } = property
 
   // destruct profile details
   const {
     profile: { firstName, profileImage },
   } = property
+
   return (
     <section>
       <BreadCrumbs name={name} />
@@ -55,6 +57,8 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
           <UserInfo profile={{ firstName, profileImage }} />
           <Separator className='mt-4' />
           <Description description={description} />
+          <Separator className='mt-4' />
+          <Amenities amenities={amenities} />
         </div>
         <div className='lg:col-span-4 flex flex-col items-center'>
           {/* calendar */}
