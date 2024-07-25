@@ -1,10 +1,9 @@
 import FormInput from '@/components/form/FormInput'
 import { SubmitButton } from '@/components/form/Buttons'
 import FormContainer from '@/components/form/FormContainer'
-import { createProfileAction, getCurrentUser } from '@/utils/actions'
+import { createProfileAction } from '@/utils/actions'
 
 async function CreateProfilePage() {
-  await getCurrentUser()
   return (
     <section>
       <h1 className='text-2xl font-semibold mb-8 capitalize'>new user</h1>

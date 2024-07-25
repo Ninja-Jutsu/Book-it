@@ -9,8 +9,8 @@ import { uploadImage } from './supabase'
 export async function getCurrentUser() {
   const user = await currentUser()
   if (!user) throw new Error('You must be logged in to access this route')
-  if (user.privateMetadata.hasProfile) {
-    redirect('/')
+  if (!user.privateMetadata.hasProfile) {
+    redirect('/profile/create')
   }
   return user
 }
@@ -47,7 +47,6 @@ export async function createProfileAction(prevState: any, formData: FormData) {
       },
     })
   } catch (error) {
-    console.log(error)
     return renderError(error)
   }
   // if all good redirect to home page
@@ -76,7 +75,9 @@ export async function fetchProfile() {
     },
   })
 
-  if (!profile) redirect('/profile/create')
+  if (!profile) {
+    redirect('/profile/create')
+  }
 
   return profile
 }
@@ -140,7 +141,6 @@ export const createPropertyAction = async (prevState: any, formData: FormData): 
       },
     })
   } catch (error) {
-    console.log(error)
     return renderError(error)
   }
   redirect('/')
@@ -166,4 +166,23 @@ export async function fetchProperties({ search = '', category }: { search?: stri
   })
 
   return properties
+}
+
+export async function fetchFavoriteId({ propertyId }: { propertyId: string }) {
+  const user = await getCurrentUser()
+  const favorite = await prisma.favorite.findFirst({
+    where: {
+      propertyId,
+      profileId: user.id,
+    },
+    select: {
+      id: true,
+    },
+  })
+
+  return favorite?.id || null
+}
+
+export async function toggleFavoriteAction() {
+  return { message: 'toggle favorite' }
 }
