@@ -12,7 +12,7 @@ function PropertiesList({ properties }: { properties: PropertyCardProps[] }) {
           />
         )
       })}
-    </section>
+    </section> 
   )
 }
 

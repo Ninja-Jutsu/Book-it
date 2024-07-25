@@ -1,7 +1,12 @@
-import React from 'react'
+import EmptyList from '@/components/home/EmptyList'
+import PropertiesList from '@/components/home/PropertiesList'
+import { fetchFavorites } from '@/utils/actions'
 
-function FavoritePage() {
-  return <h1 className='text-3xl'>FavoritePage</h1>
+async function FavoritePage() {
+  const favorites = await fetchFavorites()
+
+  if (favorites.length === 0) return <EmptyList />
+  return <PropertiesList properties={favorites} />
 }
 
 export default FavoritePage
