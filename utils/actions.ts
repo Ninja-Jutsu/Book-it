@@ -358,3 +358,14 @@ export async function findExistingReview(userId: string, propertyId: string) {
     },
   })
 }
+
+interface BookingActionsProps {
+  prevState: null
+  propertyId: string
+  checkIn: Date
+  checkOut: Date
+}
+
+export async function createBookingAction({ prevState, propertyId, checkIn, checkOut }: BookingActionsProps) {
+  return { message: 'create booking' }
+}
