@@ -10,6 +10,10 @@ import { generateDisabledDates, generateDateRange, defaultSelected, generateBloc
 function BookingCalendar() {
   const currentDate = new Date()
   const [range, setRange] = useState<DateRange | undefined>(defaultSelected)
+  const bookings = useProperty((state) => state.bookings)
+  console.log(bookings)
+
+  const blockedPeriods = generateBlockedPeriods({ bookings, today: currentDate })
 
   // every time we select a range => update the range in the Zustand state
   useEffect(() => {
@@ -24,6 +28,7 @@ function BookingCalendar() {
       selected={range}
       onSelect={setRange}
       className='mb-4'
+      disabled={blockedPeriods}
     />
   )
 }
