@@ -342,3 +342,13 @@ export async function fetchPropertyRating(propertyId: string) {
 
   return { rating: result[0]?._avg.rating?.toFixed() ?? 0, count: result[0]?._count.rating ?? 0 }
 }
+
+export const findExistingReview = async (userId: string, propertyId: string) => {
+  // we want the result to be null, otherwise user cannot submit review
+  return prisma.review.findFirst({
+    where: {
+      profileId: userId,
+      propertyId: propertyId,
+    },
+  })
+}

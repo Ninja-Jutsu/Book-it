@@ -6,7 +6,7 @@ import ImageContainer from '@/components/properties/ImageContainer'
 import PropertyDetails from '@/components/properties/PropertyDetails'
 import ShareButton from '@/components/properties/ShareButton'
 import UserInfo from '@/components/properties/UserInfo'
-import { fetchPropertyDetails } from '@/utils/actions'
+import { fetchPropertyDetails, findExistingReview } from '@/utils/actions'
 import { Separator } from '@/components/ui/separator'
 import { redirect } from 'next/navigation'
 import React from 'react'
@@ -16,6 +16,7 @@ import dynamic from 'next/dynamic'
 import { Skeleton } from '@/components/ui/skeleton'
 import SubmitReview from '@/components/reviews/SubmitReview'
 import PropertyReviews from '@/components/reviews/PropertyReviews'
+import { auth } from '@clerk/nextjs/server'
 
 const DynamicMap = dynamic(() => import('@/components/properties/PropertyMap'), {
   ssr: false,
@@ -24,7 +25,6 @@ const DynamicMap = dynamic(() => import('@/components/properties/PropertyMap'), 
 
 async function PropertyDetailsPage({ params: { id } }: { params: { id: string } }) {
   const property = await fetchPropertyDetails(id)
-
   if (!property) redirect('/')
 
   // destruct property details
@@ -41,6 +41,10 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
     amenities,
     country,
   } = property
+
+  const { userId } = auth()
+  const isNotOwner = property.profile.clerkId !== userId
+  const reviewDoesNotExist = userId && isNotOwner && !(await findExistingReview(userId, propertyId))
 
   // destruct profile details
   const {
@@ -87,7 +91,7 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
           <BookingCalender />
         </div>
       </section>
-      <SubmitReview propertyId={propertyId} />
+      {reviewDoesNotExist && <SubmitReview propertyId={propertyId} />}
       <PropertyReviews propertyId={propertyId} />
     </section>
   )
