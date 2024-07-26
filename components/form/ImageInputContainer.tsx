@@ -28,6 +28,7 @@ function ImageInputContainer({ action, image, name, text, children }: ImageInput
           alt={name}
           width={100}
           height={100}
+          quality={100}
           className='rounded object-cover mb-4 w-24 h-24'
         />
       ) : (
