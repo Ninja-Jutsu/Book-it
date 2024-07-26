@@ -10,13 +10,11 @@ type PropertyState = {
 }
 
 // Create the store
-export function useProperty() {
-  create<PropertyState>(() => {
-    return {
-      propertyId: '',
-      price: 0,
-      bookings: [],
-      range: undefined,
-    }
-  })
-}
+export const useProperty = create<PropertyState>(() => {
+  return {
+    propertyId: '',
+    price: 0,
+    bookings: [],
+    range: undefined,
+  }
+})

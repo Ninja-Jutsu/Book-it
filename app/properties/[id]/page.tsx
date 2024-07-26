@@ -23,6 +23,11 @@ const DynamicMap = dynamic(() => import('@/components/properties/PropertyMap'), 
   loading: () => <Skeleton className='h-[400px] w-full' />,
 })
 
+const DynamicBookingWrapper = dynamic(() => import('@/components/booking/BookingWrapper'), {
+  ssr: false,
+  loading: () => <Skeleton className='h-[200px] w-full' />,
+})
+
 async function PropertyDetailsPage({ params: { id } }: { params: { id: string } }) {
   const property = await fetchPropertyDetails(id)
   if (!property) redirect('/')
@@ -40,6 +45,8 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
     description,
     amenities,
     country,
+    price,
+    bookings,
   } = property
 
   const { userId } = auth()
@@ -87,7 +94,11 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
         </div>
         <div className='lg:col-span-4 flex flex-col items-center'>
           {/* calendar */}
-          <BookingCalender />
+          <DynamicBookingWrapper
+            bookings={bookings}
+            price={price}
+            propertyId={propertyId}
+          />
         </div>
       </section>
       {reviewDoesNotExist && <SubmitReview propertyId={propertyId} />}
