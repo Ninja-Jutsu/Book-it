@@ -340,5 +340,5 @@ export async function fetchPropertyRating(propertyId: string) {
     },
   })
 
-  return { rating: result[0]?._avg.rating?.toFixed() ?? 0, count: result[0]?._count.rating?.toFixed() ?? 0 }
+  return { rating: result[0]?._avg.rating?.toFixed() ?? 0, count: result[0]?._count.rating ?? 0 }
 }
