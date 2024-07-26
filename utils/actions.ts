@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { imageSchema, profileSchema, propertySchema, validateWithZodSchema, createReviewSchema } from './schemas'
 import { uploadImage } from './supabase'
+import { calculateTotals } from './calculateTotals'
 
 export async function getCurrentUser() {
   const user = await currentUser()
@@ -359,13 +360,35 @@ export async function findExistingReview(userId: string, propertyId: string) {
   })
 }
 
-interface BookingActionsProps {
-  prevState: null
-  propertyId: string
-  checkIn: Date
-  checkOut: Date
-}
+export async function createBookingAction(prevState: { propertyId: string; checkIn: Date; checkOut: Date }) {
+  const currentUser = await getCurrentUser()
+  const { propertyId, checkIn, checkOut } = prevState
+  const property = await prisma.property.findUnique({
+    where: {
+      id: propertyId,
+    },
+    select: {
+      price: true,
+    },
+  })
+  if (!property) return { message: 'Property not found!' }
 
-export async function createBookingAction({ prevState, propertyId, checkIn, checkOut }: BookingActionsProps) {
-  return { message: 'create booking' }
+  const { orderTotal, totalNights } = calculateTotals({ checkIn, checkOut, price: property.price })
+
+  try {
+    const booking = await prisma.booking.create({
+      data: {
+        propertyId,
+        checkIn,
+        checkOut,
+        profileId: currentUser.id,
+        orderTotal,
+        totalNights,
+      },
+    })
+    // return { message: 'Reserved successfully!' }
+  } catch (error) {
+    return renderError(error)
+  }
+  redirect('/bookings')
 }
