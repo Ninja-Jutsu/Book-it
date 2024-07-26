@@ -6,6 +6,7 @@ function EmptyList({
   heading = 'No items in the list',
   message = 'Keep exploring our properties',
   btnText = 'back home',
+  btnLink = '/',
 }: Props) {
   return (
     <div className='mt-4'>
@@ -16,7 +17,7 @@ function EmptyList({
         className='mt-4 capitalize'
         size='lg'
       >
-        <Link href='/'>{btnText}</Link>
+        <Link href={btnLink}>{btnText}</Link>
       </Button>
     </div>
   )
@@ -28,4 +29,5 @@ interface Props {
   heading?: string
   message?: string
   btnText?: string
+  btnLink?: string
 }
