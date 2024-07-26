@@ -286,7 +286,7 @@ export const fetchPropertyReviews = async (propertyId: string) => {
   return reviews
 }
 
-export const fetchPropertyReviewsByUser = async (propertyId: string) => {
+export const fetchPropertyReviewsByUser = async () => {
   const currentUser = await getCurrentUser()
   const reviews = await prisma.review.findMany({
     where: {
@@ -310,16 +310,18 @@ export const fetchPropertyReviewsByUser = async (propertyId: string) => {
   return reviews
 }
 
-export const deleteReviewAction = async ({ reviewId }: { reviewId: string }) => {
+export const deleteReviewAction = async (prevState: { reviewId: string }) => {
   const currentUser = await getCurrentUser()
   try {
     await prisma.review.delete({
       where: {
-        id: reviewId,
+        id: prevState.reviewId,
         profileId: currentUser.id,
       },
     })
     revalidatePath('/reviews')
     return { message: 'Review deleted successfully!' }
-  } catch (error) {}
+  } catch (error) {
+    return renderError(error)
+  }
 }
