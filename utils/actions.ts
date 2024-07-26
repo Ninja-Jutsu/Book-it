@@ -240,11 +240,17 @@ export async function fetchPropertyDetails(id: string) {
     where: { id },
     include: {
       profile: true,
+      bookings: {
+        select: {
+          checkIn: true,
+          checkOut: true,
+        },
+      },
     },
   })
 }
 
-export const createReviewAction = async (prevState: any, formData: FormData) => {
+export async function createReviewAction(prevState: any, formData: FormData) {
   const currentUser = await getCurrentUser()
   const rawData = Object.fromEntries(formData)
 
@@ -263,7 +269,7 @@ export const createReviewAction = async (prevState: any, formData: FormData) => 
   }
 }
 
-export const fetchPropertyReviews = async (propertyId: string) => {
+export async function fetchPropertyReviews(propertyId: string) {
   const reviews = await prisma.review.findMany({
     where: {
       propertyId,
@@ -286,7 +292,7 @@ export const fetchPropertyReviews = async (propertyId: string) => {
   return reviews
 }
 
-export const fetchPropertyReviewsByUser = async () => {
+export async function fetchPropertyReviewsByUser() {
   const currentUser = await getCurrentUser()
   const reviews = await prisma.review.findMany({
     where: {
@@ -310,7 +316,7 @@ export const fetchPropertyReviewsByUser = async () => {
   return reviews
 }
 
-export const deleteReviewAction = async (prevState: { reviewId: string }) => {
+export async function deleteReviewAction(prevState: { reviewId: string }) {
   const currentUser = await getCurrentUser()
   try {
     await prisma.review.delete({
@@ -343,7 +349,7 @@ export async function fetchPropertyRating(propertyId: string) {
   return { rating: result[0]?._avg.rating?.toFixed() ?? 0, count: result[0]?._count.rating ?? 0 }
 }
 
-export const findExistingReview = async (userId: string, propertyId: string) => {
+export async function findExistingReview(userId: string, propertyId: string) {
   // we want the result to be null, otherwise user cannot submit review
   return prisma.review.findFirst({
     where: {

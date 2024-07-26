@@ -50,7 +50,6 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
   const {
     profile: { firstName, profileImage },
   } = property
-
   return (
     <section>
       <BreadCrumbs name={name} />
