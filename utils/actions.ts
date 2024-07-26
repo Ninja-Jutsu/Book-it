@@ -3,7 +3,7 @@ import prisma from '@/prisma/client'
 import { auth, clerkClient, currentUser } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { imageSchema, profileSchema, propertySchema, validateWithZodSchema } from './schemas'
+import { imageSchema, profileSchema, propertySchema, validateWithZodSchema, createReviewSchema } from './schemas'
 import { uploadImage } from './supabase'
 
 export async function getCurrentUser() {
@@ -244,8 +244,23 @@ export async function fetchPropertyDetails(id: string) {
   })
 }
 
-export const createReviewAction = async () => {
-  return { message: 'create review' }
+export const createReviewAction = async (prevState: any, formData: FormData) => {
+  const currentUser = await getCurrentUser()
+  const rawData = Object.fromEntries(formData)
+
+  try {
+    const validatedData = validateWithZodSchema(createReviewSchema, rawData)
+    await prisma.review.create({
+      data: {
+        ...validatedData,
+        profileId: currentUser.id,
+      },
+    })
+    revalidatePath(`/properties/${validatedData.propertyId}`)
+    return { message: 'Review submitted successfully' }
+  } catch (error) {
+    return renderError(error)
+  }
 }
 
 export const fetchPropertyReviews = async () => {
