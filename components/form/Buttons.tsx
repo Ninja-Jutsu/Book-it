@@ -1,6 +1,7 @@
 'use client'
 import { SignInButton } from '@clerk/nextjs'
 import { FaRegHeart, FaHeart } from 'react-icons/fa'
+import { LuTrash2, LuPenSquare } from 'react-icons/lu'
 
 import { ReloadIcon } from '@radix-ui/react-icons'
 import { Button } from '@/components/ui/button'
@@ -59,6 +60,31 @@ export function CardSubmitButton({ isFavorite }: { isFavorite: boolean }) {
       disabled={pending}
     >
       {pending ? <ReloadIcon className='animate-spin' /> : isFavorite ? <FaHeart /> : <FaRegHeart />}
+    </Button>
+  )
+}
+
+export function IconButton({ actionType }: { actionType: 'edit' | 'delete' }) {
+  const { pending } = useFormStatus()
+  function ChosenIcon() {
+    if (actionType === 'delete') {
+      return <LuTrash2 />
+    } else if (actionType === 'edit') {
+      return <LuPenSquare />
+    } else {
+      const never: never = actionType
+      throw new Error(`Invalid action type:${never}`)
+    }
+  }
+
+  return (
+    <Button
+      type='submit'
+      size='icon'
+      variant='link'
+      className='p-2 cursor-pointer'
+    >
+      {pending ? <ReloadIcon className='animate-spin' /> : <ChosenIcon />}
     </Button>
   )
 }
