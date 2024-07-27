@@ -1,7 +1,7 @@
 import React from 'react'
-import { Card, CardHeader } from '../ui/card';
+import { Card, CardHeader } from '../ui/card'
 
-function StatsCard({ title, value }: { title: string; value: number }) {
+function StatsCard({ title, value }: { title: string; value: number | string }) {
   return (
     <Card className='bg-muted'>
       <CardHeader className='flex flex-row justify-between items-center'>

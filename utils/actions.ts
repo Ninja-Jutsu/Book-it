@@ -664,3 +664,31 @@ export async function fetchChartsData() {
   }, [] as Array<{ date: string; count: number }>)
   return bookingsPerMonth
 }
+
+export const fetchReservationStats = async () => {
+  const user = await getCurrentUser()
+  const properties = await prisma.property.count({
+    where: {
+      profileId: user.id,
+    },
+  })
+
+  const totals = await prisma.booking.aggregate({
+    where: {
+      property: {
+        profileId: user.id,
+      },
+    },
+    // what I need:
+    _sum: {
+      orderTotal: true,
+      totalNights: true,
+    },
+  })
+
+  return {
+    properties,
+    nights: totals._sum.totalNights || 0,
+    amount: totals._sum.orderTotal || 0,
+  }
+}
