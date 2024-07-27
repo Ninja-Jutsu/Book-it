@@ -8,6 +8,7 @@ import { uploadImage } from './supabase'
 import { calculateTotals } from './calculateTotals'
 import { Prisma } from '@prisma/client'
 import { formatDate } from './format'
+import { string } from 'zod'
 
 export async function getCurrentUser() {
   const user = await currentUser()
@@ -364,6 +365,9 @@ export async function findExistingReview(userId: string, propertyId: string) {
 
 export async function createBookingAction(prevState: { propertyId: string; checkIn: Date; checkOut: Date }) {
   const currentUser = await getCurrentUser()
+
+  let bookingId: null | string = null
+
   const { propertyId, checkIn, checkOut } = prevState
   const property = await prisma.property.findUnique({
     where: {
@@ -388,11 +392,11 @@ export async function createBookingAction(prevState: { propertyId: string; check
         totalNights,
       },
     })
-    // return { message: 'Reserved successfully!' }
+    bookingId = booking.id
   } catch (error) {
     return renderError(error)
   }
-  redirect('/bookings')
+  redirect(`/checkout?bookingId=${bookingId}`)
 }
 
 export const fetchBookings = async () => {
@@ -631,12 +635,11 @@ export async function fetchChartsData() {
     },
   })
 
-
   let bookingsPerMonth = bookings.reduce((total, current) => {
     const date = formatDate(current.createdAt, true)
 
     const existingEntry = total.find((entry) => entry.date === date)
-    
+
     if (existingEntry) {
       existingEntry.count += 1
     } else {
