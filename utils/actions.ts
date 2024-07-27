@@ -7,6 +7,7 @@ import { imageSchema, profileSchema, propertySchema, validateWithZodSchema, crea
 import { uploadImage } from './supabase'
 import { calculateTotals } from './calculateTotals'
 import { Prisma } from '@prisma/client'
+import { formatDate } from './format'
 
 export async function getCurrentUser() {
   const user = await currentUser()
@@ -609,4 +610,39 @@ export async function fetchStats() {
     propertiesCount,
     bookingsCount,
   }
+}
+
+export async function fetchChartsData() {
+  await getAdminUser()
+
+  // checking data for the last 6 months
+  const date = new Date()
+  date.setMonth(date.getMonth() - 6)
+  const sixMonthsAgo = date
+
+  const bookings = await prisma.booking.findMany({
+    where: {
+      createdAt: {
+        gte: sixMonthsAgo,
+      },
+    },
+    orderBy: {
+      createdAt: 'asc',
+    },
+  })
+
+
+  let bookingsPerMonth = bookings.reduce((total, current) => {
+    const date = formatDate(current.createdAt, true)
+
+    const existingEntry = total.find((entry) => entry.date === date)
+    
+    if (existingEntry) {
+      existingEntry.count += 1
+    } else {
+      total.push({ date, count: 1 })
+    }
+    return total
+  }, [] as Array<{ date: string; count: number }>)
+  return bookingsPerMonth
 }
