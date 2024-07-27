@@ -11,7 +11,13 @@ import { fetchBookings, deleteBookingAction } from '@/utils/actions'
 
 async function BookingsPage() {
   const bookings = await fetchBookings()
-  if (bookings.length === 0) return <EmptyList heading='You have no reservations yet!' btnText='Back to Reservations' />
+  if (bookings.length === 0)
+    return (
+      <EmptyList
+        heading='You have no bookings yet!'
+        btnText='Homepage'
+      />
+    )
   return (
     <div className='mt-16'>
       <h4 className='font-bold text-xl mb-4 capitalize'>total bookings : {bookings.length}</h4>

@@ -10,7 +10,13 @@ async function ReservationPage() {
   const reservations = await fetchReservations()
 
   if (reservations.length === 0) {
-    return <EmptyList />
+    return (
+      <EmptyList
+        heading='You have no reservations yet yet!'
+        btnText='Edit your properties?'
+        btnLink='/rentals'
+      />
+    )
   }
   return (
     <div className='mt-16'>
