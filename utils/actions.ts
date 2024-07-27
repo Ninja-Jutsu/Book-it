@@ -366,6 +366,13 @@ export async function findExistingReview(userId: string, propertyId: string) {
 export async function createBookingAction(prevState: { propertyId: string; checkIn: Date; checkOut: Date }) {
   const currentUser = await getCurrentUser()
 
+  await prisma.booking.deleteMany({
+    where: {
+      profileId: currentUser.id,
+      paymentStatus: false,
+    },
+  })
+
   let bookingId: null | string = null
 
   const { propertyId, checkIn, checkOut } = prevState
