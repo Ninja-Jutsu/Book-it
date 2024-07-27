@@ -590,3 +590,23 @@ export const fetchReservations = async () => {
   })
   return reservations
 }
+
+// Admin
+async function getAdminUser() {
+  const user = await getCurrentUser()
+  if (user.id !== process.env.ADMIN_ID) redirect('/')
+}
+
+export async function fetchStats() {
+  await getAdminUser()
+
+  const usersCount = await prisma.profile.count()
+  const propertiesCount = await prisma.property.count()
+  const bookingsCount = await prisma.booking.count()
+
+  return {
+    usersCount,
+    propertiesCount,
+    bookingsCount,
+  }
+}
