@@ -411,6 +411,7 @@ export const fetchBookings = async () => {
   const bookings = await prisma.booking.findMany({
     where: {
       profileId: user.id,
+      paymentStatus: true,
     },
     include: {
       property: {
@@ -465,6 +466,7 @@ export const fetchRentals = async () => {
       const totalNightsSum = await prisma.booking.aggregate({
         where: {
           propertyId: rental.id,
+          paymentStatus: true,
         },
         _sum: {
           totalNights: true,
@@ -575,6 +577,7 @@ export const fetchReservations = async () => {
 
   const reservations = await prisma.booking.findMany({
     where: {
+      paymentStatus: true,
       property: {
         profileId: user.id,
       },
@@ -614,7 +617,11 @@ export async function fetchStats() {
 
   const usersCount = await prisma.profile.count()
   const propertiesCount = await prisma.property.count()
-  const bookingsCount = await prisma.booking.count()
+  const bookingsCount = await prisma.booking.count({
+    where: {
+      paymentStatus: true,
+    },
+  })
 
   return {
     usersCount,
@@ -633,6 +640,7 @@ export async function fetchChartsData() {
 
   const bookings = await prisma.booking.findMany({
     where: {
+      paymentStatus: true,
       createdAt: {
         gte: sixMonthsAgo,
       },
