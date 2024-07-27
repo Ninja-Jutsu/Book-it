@@ -557,3 +557,36 @@ export const updatePropertyImageAction = async (prevState: any, formData: FormDa
     return renderError(error)
   }
 }
+
+export const fetchReservations = async () => {
+  const user = await getCurrentUser()
+
+  const reservations = await prisma.booking.findMany({
+    where: {
+      property: {
+        profileId: user.id,
+      },
+    },
+
+    orderBy: {
+      createdAt: 'desc', // or 'asc' for ascending order
+    },
+
+    include: {
+      property: {
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          country: true,
+          profile: {
+            select: {
+              lastName: true,
+            },
+          },
+        },
+      }, // include property details in the result
+    },
+  })
+  return reservations
+}
