@@ -1,10 +1,6 @@
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
-//   const numbers = Array.from({ length: 5 }, (_, i) => {
-//     const value = i + 1
-//     return value.toString()
-//   }).reverse()
 const numbers = ['5', '4', '3', '2', '1']
 
 function RatingInput({ name, labelText }: { name: string; labelText?: string }) {

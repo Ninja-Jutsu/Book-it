@@ -22,13 +22,11 @@ function CreateRentalPage() {
               inputId='name'
               inputType='text'
               label='Name (20 limit)'
-              defaultValue='Cabin in Morocco'
             />
             <FormInput
               inputId='tagline'
               inputType='text'
               label='Tagline (30 limit)'
-              defaultValue='Dream Getaway'
             />
             {/* price */}
             <PriceInput />

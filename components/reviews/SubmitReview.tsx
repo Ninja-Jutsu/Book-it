@@ -32,9 +32,11 @@ function SubmitReview({ propertyId }: { propertyId: string }) {
             <TextAreaInput
               name='comment'
               labelText='your thoughts on this property'
-              defaultValue='Awesome place'
             />
-            <SubmitButton className='mt-4' text='Submit' />
+            <SubmitButton
+              className='mt-4'
+              text='Submit'
+            />
           </FormContainer>
         </Card>
       )}
