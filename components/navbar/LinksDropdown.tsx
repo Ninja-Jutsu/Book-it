@@ -8,6 +8,8 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Button } from '../ui/button'
 
+import { auth } from '@clerk/nextjs/server'
+
 // icons
 import { LuAlignLeft } from 'react-icons/lu'
 import UserIcon from './UserIcon'
@@ -19,6 +21,8 @@ import Link from 'next/link'
 
 import { links } from '@/utils/links'
 function LinksDropdown() {
+  const { userId } = auth()
+  const isAdminUser = userId === process.env.ADMIN_ID
   return (
     <DropdownMenu>
       {/* must add asChild because trigger is already a button */}
@@ -51,6 +55,7 @@ function LinksDropdown() {
         </SignedOut>
         <SignedIn>
           {links.map((link) => {
+            if (link.label === 'admin' && !isAdminUser) return null
             return (
               <DropdownMenuItem key={link.href}>
                 <Link
