@@ -44,7 +44,7 @@ function FormRow({ label, amount }: { label: string; amount: number }) {
   return (
     <p className='flex justify-between text-sm mb-2'>
       <span className='font-semibold'>{label}</span>
-      <span className='font-semibold'>{amount}</span>
+      <span className='font-semibold'>${amount}</span>
     </p>
   )
 }
