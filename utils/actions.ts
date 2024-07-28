@@ -1,14 +1,12 @@
 'use server'
 import prisma from '@/prisma/client'
-import { auth, clerkClient, currentUser } from '@clerk/nextjs/server'
+import { clerkClient, currentUser } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { imageSchema, profileSchema, propertySchema, validateWithZodSchema, createReviewSchema } from './schemas'
-import { uploadImage } from './supabase'
 import { calculateTotals } from './calculateTotals'
-import { Prisma } from '@prisma/client'
 import { formatDate } from './format'
-import { string } from 'zod'
+import { createReviewSchema, imageSchema, profileSchema, propertySchema, validateWithZodSchema } from './schemas'
+import { uploadImage } from './supabase'
 
 export async function getCurrentUser() {
   const user = await currentUser()
@@ -19,7 +17,7 @@ export async function getCurrentUser() {
   return user
 }
 
-function renderError(error: unknown): { message: string } {
+export function renderError(error: unknown): { message: string } {
   console.log(error)
   return { message: error instanceof Error ? error.message : 'An error occurred' }
 }
@@ -126,6 +124,7 @@ export const updateProfileImageAction = async (prevState: any, formData: FormDat
   }
 }
 
+//@ Property
 export const createPropertyAction = async (prevState: any, formData: FormData): Promise<{ message: string }> => {
   const user = await getCurrentUser()
   try {
@@ -171,6 +170,22 @@ export async function fetchProperties({ search = '', category }: { search?: stri
 
   return properties
 }
+
+export async function fetchPropertyDetails(id: string) {
+  return await prisma.property.findUnique({
+    where: { id },
+    include: {
+      profile: true,
+      bookings: {
+        select: {
+          checkIn: true,
+          checkOut: true,
+        },
+      },
+    },
+  })
+}
+//@ favorites
 
 export async function fetchFavoriteId({ propertyId }: { propertyId: string }) {
   const user = await getCurrentUser()
@@ -239,21 +254,8 @@ export async function fetchFavorites() {
   return favorites.map((favorite) => favorite.property)
 }
 
-export async function fetchPropertyDetails(id: string) {
-  return await prisma.property.findUnique({
-    where: { id },
-    include: {
-      profile: true,
-      bookings: {
-        select: {
-          checkIn: true,
-          checkOut: true,
-        },
-      },
-    },
-  })
-}
 
+//@reviews
 export async function createReviewAction(prevState: any, formData: FormData) {
   const currentUser = await getCurrentUser()
   const rawData = Object.fromEntries(formData)
@@ -363,6 +365,7 @@ export async function findExistingReview(userId: string, propertyId: string) {
   })
 }
 
+//@bookings
 export async function createBookingAction(prevState: { propertyId: string; checkIn: Date; checkOut: Date }) {
   const currentUser = await getCurrentUser()
 
@@ -448,6 +451,7 @@ export async function deleteBookingAction(prevState: { bookingId: string }) {
   }
 }
 
+//@ rentals
 export const fetchRentals = async () => {
   const user = await getCurrentUser()
   const rentals = await prisma.property.findMany({
@@ -572,6 +576,8 @@ export const updatePropertyImageAction = async (prevState: any, formData: FormDa
   }
 }
 
+
+//@ reservations
 export const fetchReservations = async () => {
   const user = await getCurrentUser()
 
