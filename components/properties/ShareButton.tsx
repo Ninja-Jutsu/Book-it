@@ -1,19 +1,21 @@
 'use client'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Button } from '../ui/button'
 import { LuShare2 } from 'react-icons/lu'
+
 import {
-  EmailIcon,
+  TwitterShareButton,
   EmailShareButton,
-  LinkedinIcon,
   LinkedinShareButton,
   TwitterIcon,
-  TwitterShareButton,
+  EmailIcon,
+  LinkedinIcon,
 } from 'react-share'
-import { Button } from '../ui/button'
 
 function ShareButton({ propertyId, name }: { propertyId: string; name: string }) {
   const url = process.env.NEXT_PUBLIC_WEBSITE_URL
   const shareLink = `${url}/properties/${propertyId}`
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -62,5 +64,4 @@ function ShareButton({ propertyId, name }: { propertyId: string; name: string })
     </Popover>
   )
 }
-
 export default ShareButton

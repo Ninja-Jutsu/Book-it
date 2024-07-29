@@ -7,7 +7,7 @@ import {
   BreadCrumbs,
   ImageContainer,
   PropertyDetails,
-  // ShareButton,
+  ShareButton,
   UserInfo,
   Description,
   Amenities,
@@ -26,11 +26,6 @@ const DynamicMap = dynamic(() => import('@/components/properties/PropertyMap'), 
 })
 
 const DynamicBookingWrapper = dynamic(() => import('@/components/booking/BookingWrapper'), {
-  ssr: false,
-  loading: () => <Skeleton className='h-[200px] w-full' />,
-})
-
-const DynamicShareButton = dynamic(() => import('@/components/properties/ShareButton'), {
   ssr: false,
   loading: () => <Skeleton className='h-[200px] w-full' />,
 })
@@ -67,7 +62,7 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
       <header className='flex justify-between items-center mt-4'>
         <h1 className='text-4xl font-bold capitalize'>{tagline}</h1>
         <div className='flex items-center gap-x-4'>
-          <DynamicShareButton
+          <ShareButton
             propertyId={propertyId}
             name={name}
           />
