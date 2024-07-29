@@ -9,13 +9,13 @@ const neuton = Neuton({ subsets: ['latin'], weight: '700' })
 
 function Navbar() {
   return (
-    <nav className='border-b'>
-      <div className='container flex justify-between p-4 pb-2'>
-        <div className='flex items-center gap-5'>
+    <nav className='border-b container'>
+      <div className='flex justify-between p-4 pb-2'>
+        <div className='flex items-center gap-5 flex-wrap'>
           <Logo />
           <Link
             href='/'
-            className={`${neuton.className} text-2xl`}
+            className={`${neuton.className} text-2xl text-nowrap`}
           >
             Book-it
           </Link>

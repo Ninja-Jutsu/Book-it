@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 function Footer() {
   return (
-    <footer className='footer'>
+    <footer className='footer container'>
       <Card className='flex flex-col items-center justify-center'>
         <CardHeader>&copy; 2024  Ninja Jutsu</CardHeader>
         <ul className='footer-links flex gap-10 mb-5'>

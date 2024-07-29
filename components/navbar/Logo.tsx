@@ -5,11 +5,15 @@ import { Neuton } from 'next/font/google'
 function Logo() {
   return (
     <Button
+      className='w-[55px] h-[55px]'
       asChild
       size='icon'
     >
       <Link href='/'>
-        <GiCampingTent className='w-6 h-6' />
+        <GiCampingTent
+          className='w-[50px] h-[50px]'
+          fill='white'
+        />
       </Link>
     </Button>
   )
