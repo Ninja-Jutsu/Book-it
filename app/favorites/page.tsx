@@ -1,5 +1,4 @@
-import EmptyList from '@/components/home/EmptyList'
-import PropertiesList from '@/components/home/PropertiesList'
+import { EmptyList, PropertiesList } from '@/components/home'
 import { fetchFavorites } from '@/utils/actions/favoritesActions'
 
 async function FavoritePage() {

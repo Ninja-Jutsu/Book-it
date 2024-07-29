@@ -1,23 +1,25 @@
-import FavoriteToggleBtn from '@/components/card/FavoriteToggleBtn'
-import PropertyRating from '@/components/card/PropertyRating'
-import BreadCrumbs from '@/components/properties/BreadCrumbs'
-import ImageContainer from '@/components/properties/ImageContainer'
-import PropertyDetails from '@/components/properties/PropertyDetails'
-import ShareButton from '@/components/properties/ShareButton'
-import UserInfo from '@/components/properties/UserInfo'
-import Description from '@/components/properties/Description'
-import Amenities from '@/components/properties/Amenities'
+import { redirect } from 'next/navigation'
+import dynamic from 'next/dynamic'
+import { auth } from '@clerk/nextjs/server'
+//Compo
+import { FavoriteToggleBtn, PropertyRating } from '@/components/card'
+import {
+  BreadCrumbs,
+  ImageContainer,
+  PropertyDetails,
+  ShareButton,
+  UserInfo,
+  Description,
+  Amenities,
+} from '@/components/properties'
+import { SubmitReview, PropertyReviews } from '@/components/reviews'
+import { Separator } from '@/components/ui/separator'
+import { Skeleton } from '@/components/ui/skeleton'
+//Actions
 import { findExistingReview } from '@/utils/actions/reviewsActions'
 import { fetchPropertyDetails } from '@/utils/actions/propertyActions'
-import { Separator } from '@/components/ui/separator'
-import { redirect } from 'next/navigation'
-import React from 'react'
-import dynamic from 'next/dynamic'
-import { Skeleton } from '@/components/ui/skeleton'
-import SubmitReview from '@/components/reviews/SubmitReview'
-import PropertyReviews from '@/components/reviews/PropertyReviews'
-import { auth } from '@clerk/nextjs/server'
 
+// Cancel SSR :
 const DynamicMap = dynamic(() => import('@/components/properties/PropertyMap'), {
   ssr: false,
   loading: () => <Skeleton className='h-[400px] w-full' />,
@@ -47,16 +49,13 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
     country,
     price,
     bookings,
+    profile: { firstName, profileImage, clerkId },
   } = property
 
   const { userId } = auth()
-  const isNotOwner = property.profile.clerkId !== userId
+  const isNotOwner = clerkId !== userId
   const reviewDoesNotExist = userId && isNotOwner && !(await findExistingReview(userId, propertyId))
 
-  // destruct profile details
-  const {
-    profile: { firstName, profileImage },
-  } = property
   return (
     <section>
       <BreadCrumbs name={name} />
@@ -77,7 +76,7 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
       <section className='lg:grid lg:grid-cols-12 gap-x-12 mt-12'>
         <div className='lg:col-span-8'>
           <div className='flex gap-x-4 items-center'>
-            <h1 className='text-xl font-bold'>{property.name}</h1>
+            <h1 className='text-xl font-bold'>{name}</h1>
             <PropertyRating
               inPage
               propertyId={propertyId}

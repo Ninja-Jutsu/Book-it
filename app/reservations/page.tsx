@@ -1,12 +1,14 @@
-import { fetchReservations } from '@/utils/actions/reservationsActions'
 import Link from 'next/link'
-import EmptyList from '@/components/home/EmptyList'
-import CountryFlagAndName from '@/components/card/CountryFlagAndName'
-
-import { formatDate, formatCurrency } from '@/utils/format'
+//Compo
+import { EmptyList } from '@/components/home'
+import { CountryFlagAndName } from '@/components/card'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-
 import Stats from '@/components/reservations/Stats'
+
+//Actions
+import { fetchReservations } from '@/utils/actions/reservationsActions'
+//Help
+import { formatDate, formatCurrency } from '@/utils/format'
 
 async function ReservationPage() {
   const reservations = await fetchReservations()

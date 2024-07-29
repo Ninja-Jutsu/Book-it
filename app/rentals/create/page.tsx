@@ -1,14 +1,18 @@
-import FormInput from '@/components/form/FormInput'
-import FormContainer from '@/components/form/FormContainer'
-import { createPropertyAction } from '@/utils/actions/propertyActions'
+//Compo
+import {
+  FormInput,
+  FormContainer,
+  PriceInput,
+  CategoriesInput,
+  TextAreaInput,
+  CountriesInput,
+  ImageInput,
+  CounterInput,
+  AmenitiesInput,
+} from '@/components/form'
 import { SubmitButton } from '@/components/form/Buttons'
-import PriceInput from '@/components/form/PriceInput'
-import CategoriesInput from '@/components/form/CategoriesInput'
-import TextAreaInput from '@/components/form/TextAreaInput'
-import CountriesInput from '@/components/form/CountriesInput'
-import ImageInput from '@/components/form/ImageInput'
-import CounterInput from '@/components/form/CounterInput'
-import AmenitiesInput from '@/components/form/Amenities'
+//Actions
+import { createPropertyAction } from '@/utils/actions/propertyActions'
 
 function CreateRentalPage() {
   return (
@@ -28,12 +32,9 @@ function CreateRentalPage() {
               inputType='text'
               label='Tagline (30 limit)'
             />
-            {/* price */}
             <PriceInput />
-            {/* categories */}
             <CategoriesInput />
           </div>
-          {/* text area, description */}
           <TextAreaInput
             name='description'
             labelText='description (10 - 1000 words)'

@@ -1,20 +1,22 @@
-import EmptyList from '@/components/home/EmptyList'
-import { deleteReviewAction, fetchPropertyReviewsByUser } from '@/utils/actions/reviewsActions'
-import ReviewCard from '@/components/reviews/ReviewCard'
-import Title from '@/components/properties/Title'
-import FormContainer from '@/components/form/FormContainer'
+//Compo
+import { EmptyList } from '@/components/home'
+import { ReviewCard } from '@/components/reviews'
+import { Title } from '@/components/properties'
+import { FormContainer } from '@/components/form'
 import { IconButton } from '@/components/form/Buttons'
+//Actions
+import { deleteReviewAction, fetchPropertyReviewsByUser } from '@/utils/actions/reviewsActions'
 
 async function ReviewsPage() {
   const reviews = await fetchPropertyReviewsByUser()
-
   if (reviews.length === 0) return <EmptyList />
 
   return (
     <>
       <Title text='Your Reviews' />
       <section className='grid md:grid-cols-2 gap-8 mt-4'>
-        {reviews.map(({ comment, id, property: { image, name }, rating }) => {
+        {reviews.map(({ comment, id, property, rating }) => {
+          const { image, name } = property
           return (
             <ReviewCard
               key={id}

@@ -1,6 +1,7 @@
-import FormInput from '@/components/form/FormInput'
+// Compo
+import { FormInput, FormContainer } from '@/components/form'
 import { SubmitButton } from '@/components/form/Buttons'
-import FormContainer from '@/components/form/FormContainer'
+//Actions
 import { createProfileAction } from '@/utils/actions/profileActions'
 
 async function CreateProfilePage() {

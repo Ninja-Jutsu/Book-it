@@ -1,12 +1,14 @@
-import EmptyList from '@/components/home/EmptyList'
-import { fetchRentals, deleteRentalAction } from '@/utils/actions/rentalsActions'
 import Link from 'next/link'
 
-import { formatCurrency } from '@/utils/format'
+//Compo
+import { EmptyList } from '@/components/home'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-
-import FormContainer from '@/components/form/FormContainer'
+import { FormContainer } from '@/components/form'
 import { IconButton } from '@/components/form/Buttons'
+//Actions
+import { fetchRentals, deleteRentalAction } from '@/utils/actions/rentalsActions'
+//Help
+import { formatCurrency } from '@/utils/format'
 
 async function RentalsPage() {
   const rentals = await fetchRentals()
