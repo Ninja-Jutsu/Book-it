@@ -1,13 +1,17 @@
-import EmptyList from '@/components/home/EmptyList'
-import CountryFlagAndName from '@/components/card/CountryFlagAndName'
 import Link from 'next/link'
 
-import { formatDate, formatCurrency } from '@/utils/format'
+//Components
+import { EmptyList } from '@/components/home'
+import { CountryFlagAndName } from '@/components/card'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-
-import FormContainer from '@/components/form/FormContainer'
+import { FormContainer } from '@/components/form'
 import { IconButton } from '@/components/form/Buttons'
+
+//actions
 import { fetchBookings, deleteBookingAction } from '@/utils/actions/bookingsActions'
+
+// helpers
+import { formatDate, formatCurrency } from '@/utils/format'
 
 async function BookingsPage() {
   const bookings = await fetchBookings()

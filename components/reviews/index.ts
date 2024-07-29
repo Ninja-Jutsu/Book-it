@@ -1,0 +1,5 @@
+export { default as Comment } from './Comment'
+export { default as PropertyReviews } from './PropertyReviews'
+export { default as Rating } from './Rating'
+export { default as ReviewCard } from './ReviewCard'
+export { default as SubmitReview } from './SubmitReview'
