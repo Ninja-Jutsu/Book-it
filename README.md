@@ -1,7 +1,9 @@
 # Book-it:
 
 **Overview:**
-This project is a renting service provider built using Next.js 14. It allows users to:
+This project is a renting service provider built using Next.js 14.
+This web application is responsive and suitable for all devices
+ It allows users to:
 
 - Create a profile using Social Media accounts
 - Create a profile & update it
@@ -32,6 +34,7 @@ This project is a renting service provider built using Next.js 14. It allows use
 - React
 - TypeScript
 - MySQL
+- Supabase
 - Prisma
 - Tailwind CSS
 - shadcn/ui
