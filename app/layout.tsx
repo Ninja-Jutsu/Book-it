@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 // compo
 import Navbar from '@/components/navbar/Navbar'
 import Providers from './providers'
+import Footer from './Footer'
 
 export const metadata: Metadata = {
   title: 'Book-it',
@@ -31,6 +32,7 @@ export default function RootLayout({
             <main className='container py-10 pt-0'>{children}</main>
           </Providers>
         </body>
+        <Footer />
       </html>
     </ClerkProvider>
   )
