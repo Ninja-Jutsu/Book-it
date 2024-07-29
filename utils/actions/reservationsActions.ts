@@ -1,5 +1,5 @@
 'use server'
-import { getCurrentUser } from '../actions'
+import { getCurrentUser } from './actionsHelper/getCurrentUser'
 import prisma from '@/prisma/client'
 
 export const fetchReservations = async () => {

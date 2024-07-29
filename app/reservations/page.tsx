@@ -1,4 +1,4 @@
-import { fetchReservations } from '@/utils/actions'
+import { fetchReservations } from '@/utils/actions/reservationsActions'
 import Link from 'next/link'
 import EmptyList from '@/components/home/EmptyList'
 import CountryFlagAndName from '@/components/card/CountryFlagAndName'

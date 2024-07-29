@@ -1,6 +1,7 @@
 'use server'
 import { redirect } from 'next/navigation'
-import { getCurrentUser, renderError } from '../actions'
+import { getCurrentUser } from './actionsHelper/getCurrentUser'
+import renderError from './actionsHelper/renderError'
 import { imageSchema, propertySchema, validateWithZodSchema } from '../schemas'
 import prisma from '@/prisma/client'
 import { uploadImage } from '../supabase'

@@ -1,5 +1,5 @@
 import EmptyList from '@/components/home/EmptyList'
-import { deleteReviewAction, fetchPropertyReviewsByUser } from '@/utils/actions'
+import { deleteReviewAction, fetchPropertyReviewsByUser } from '@/utils/actions/reviewsActions'
 import ReviewCard from '@/components/reviews/ReviewCard'
 import Title from '@/components/properties/Title'
 import FormContainer from '@/components/form/FormContainer'

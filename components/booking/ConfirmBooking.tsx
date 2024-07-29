@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { useProperty } from '@/utils/store'
 import FormContainer from '@/components/form/FormContainer'
 import { SubmitButton } from '@/components/form/Buttons'
-import { createBookingAction } from '@/utils/actions'
+import { createBookingAction } from '@/utils/actions/bookingsActions'
 
 function ConfirmBooking() {
   const { userId } = useAuth()
@@ -26,7 +26,7 @@ function ConfirmBooking() {
         </Button>
       </SignInButton>
     )
-    
+
   const createBooking = createBookingAction.bind(null, { propertyId, checkIn, checkOut })
 
   return (

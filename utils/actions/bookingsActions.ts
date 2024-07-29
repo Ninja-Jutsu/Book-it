@@ -4,7 +4,8 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { calculateTotals } from '../calculateTotals'
 
-import { getCurrentUser, renderError } from '../actions'
+import { getCurrentUser } from './actionsHelper/getCurrentUser'
+import renderError from './actionsHelper/renderError'
 export async function createBookingAction(prevState: { propertyId: string; checkIn: Date; checkOut: Date }) {
   const currentUser = await getCurrentUser()
 

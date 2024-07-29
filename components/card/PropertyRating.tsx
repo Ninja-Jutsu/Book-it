@@ -1,4 +1,4 @@
-import { fetchPropertyRating } from '@/utils/actions'
+import { fetchPropertyRating } from '@/utils/actions/reviewsActions'
 import React from 'react'
 import { FaStar } from 'react-icons/fa'
 

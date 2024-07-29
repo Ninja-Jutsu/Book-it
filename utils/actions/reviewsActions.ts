@@ -1,8 +1,9 @@
 'use server'
 import prisma from '@/prisma/client'
 import { revalidatePath } from 'next/cache'
-import { getCurrentUser, renderError } from '../actions'
+import { getCurrentUser } from './actionsHelper/getCurrentUser'
 import { createReviewSchema, validateWithZodSchema } from '../schemas'
+import renderError from './actionsHelper/renderError'
 
 export async function createReviewAction(prevState: any, formData: FormData) {
   const currentUser = await getCurrentUser()

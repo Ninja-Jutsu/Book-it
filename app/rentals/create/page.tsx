@@ -1,6 +1,6 @@
 import FormInput from '@/components/form/FormInput'
 import FormContainer from '@/components/form/FormContainer'
-import { createPropertyAction } from '@/utils/actions'
+import { createPropertyAction } from '@/utils/actions/propertyActions'
 import { SubmitButton } from '@/components/form/Buttons'
 import PriceInput from '@/components/form/PriceInput'
 import CategoriesInput from '@/components/form/CategoriesInput'

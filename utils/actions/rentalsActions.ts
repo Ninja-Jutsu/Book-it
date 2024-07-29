@@ -1,7 +1,8 @@
 'use server'
 import prisma from '@/prisma/client'
 import { revalidatePath } from 'next/cache'
-import { getCurrentUser, renderError } from '../actions'
+import { getCurrentUser } from './actionsHelper/getCurrentUser'
+import renderError from './actionsHelper/renderError'
 
 export const fetchRentals = async () => {
   const user = await getCurrentUser()

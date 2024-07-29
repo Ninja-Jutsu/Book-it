@@ -2,7 +2,7 @@ import { FaHeart } from 'react-icons/fa'
 import { Button } from '@/components/ui/button'
 import { auth } from '@clerk/nextjs/server'
 import { CardSignInButton } from '../form/Buttons'
-import { fetchFavoriteId } from '@/utils/actions'
+import { fetchFavoriteId } from '@/utils/actions/favoritesActions'
 import FavoriteToggleForm from './FavoriteToggleForm'
 
 async function FavoriteToggleBtn({ propertyId }: { propertyId: string }) {

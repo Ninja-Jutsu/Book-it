@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { FaUserTie } from 'react-icons/fa6'
-import { fetchProfileImage } from '@/utils/actions'
+import { fetchProfileImage } from '@/utils/actions/profileActions'
 async function UserIcon() {
   const profileImage = await fetchProfileImage()
   if (profileImage) {

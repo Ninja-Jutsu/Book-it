@@ -1,4 +1,4 @@
-import { fetchStats } from '@/utils/actions'
+import { fetchStats } from '@/utils/actions/adminActions'
 import StatsCard from './StatsCard'
 
 async function StatsContainer() {

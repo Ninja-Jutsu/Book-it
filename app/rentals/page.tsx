@@ -1,5 +1,5 @@
 import EmptyList from '@/components/home/EmptyList'
-import { fetchRentals, deleteRentalAction } from '@/utils/actions'
+import { fetchRentals, deleteRentalAction } from '@/utils/actions/rentalsActions'
 import Link from 'next/link'
 
 import { formatCurrency } from '@/utils/format'

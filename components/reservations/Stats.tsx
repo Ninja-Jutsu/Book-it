@@ -1,5 +1,5 @@
 import StatsCards from '@/components/admin/StatsCard'
-import { fetchReservationStats } from '@/utils/actions'
+import { fetchReservationStats } from '@/utils/actions/reservationsActions'
 import { formatCurrency } from '@/utils/format'
 
 import React from 'react'

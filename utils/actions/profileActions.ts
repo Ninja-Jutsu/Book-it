@@ -1,5 +1,6 @@
 'use server'
-import { getCurrentUser, renderError } from '@/utils/actions'
+import { getCurrentUser } from './actionsHelper/getCurrentUser'
+import renderError from './actionsHelper/renderError'
 import { clerkClient, currentUser } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'

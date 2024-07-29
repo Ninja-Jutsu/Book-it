@@ -1,4 +1,5 @@
-import { fetchRentalDetails, updatePropertyImageAction, updatePropertyAction } from '@/utils/actions'
+import { fetchRentalDetails } from '@/utils/actions/rentalsActions'
+import { updatePropertyImageAction, updatePropertyAction } from '@/utils/actions/propertyActions'
 import FormContainer from '@/components/form/FormContainer'
 import FormInput from '@/components/form/FormInput'
 import CategoriesInput from '@/components/form/CategoriesInput'

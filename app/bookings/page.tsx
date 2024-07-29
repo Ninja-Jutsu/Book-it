@@ -7,7 +7,7 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 
 import FormContainer from '@/components/form/FormContainer'
 import { IconButton } from '@/components/form/Buttons'
-import { fetchBookings, deleteBookingAction } from '@/utils/actions'
+import { fetchBookings, deleteBookingAction } from '@/utils/actions/bookingsActions'
 
 async function BookingsPage() {
   const bookings = await fetchBookings()

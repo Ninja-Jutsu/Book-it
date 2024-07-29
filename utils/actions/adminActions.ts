@@ -1,4 +1,4 @@
-import { getCurrentUser } from '../actions'
+import { getCurrentUser } from './actionsHelper/getCurrentUser'
 import { redirect } from 'next/navigation'
 import prisma from '@/prisma/client'
 import { formatDate } from '../format'
