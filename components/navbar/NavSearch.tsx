@@ -33,7 +33,7 @@ function NavSearch() {
   return (
     <Input
       type='text'
-      placeholder='find a property'
+      placeholder='Find a property'
       className='max-w-xs dark:bg-muted'
       value={search}
       onChange={(e) => {

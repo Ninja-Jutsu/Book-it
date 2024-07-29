@@ -6,8 +6,8 @@ function CategoriesList({ category, search }: Props) {
   // combine the search query param with the category
   const searchTerm = search ? `&search=${search}` : ''
   return (
-    <section>
-      <ScrollArea className='py-6'>
+    <section className='flex justify-center'>
+      <ScrollArea className='py-2'>
         <div className='flex gap-x-4'>
           {categories.map((item) => {
             const isActive = item.label === category

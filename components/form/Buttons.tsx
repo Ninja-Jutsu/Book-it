@@ -56,10 +56,19 @@ export function CardSubmitButton({ isFavorite }: { isFavorite: boolean }) {
     <Button
       size='icon'
       variant='outline'
-      className='p-2 cursor-pointer'
+      className='p-2 cursor-pointer bg-transparent border-none'
       disabled={pending}
     >
-      {pending ? <ReloadIcon className='animate-spin' /> : isFavorite ? <FaHeart /> : <FaRegHeart />}
+      {pending ? (
+        <ReloadIcon className='animate-spin' />
+      ) : isFavorite ? (
+        <FaHeart
+          fill='tomato'
+          style={{ width: '40px', height: '40px' }}
+        />
+      ) : (
+        <FaRegHeart style={{ width: '40px', height: '40px' }} />
+      )}
     </Button>
   )
 }
