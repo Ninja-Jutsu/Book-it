@@ -61,7 +61,7 @@ async function PropertyDetailsPage({ params: { id } }: { params: { id: string } 
       <BreadCrumbs name={name} />
       <header className='flex justify-between items-center mt-4'>
         <h1 className='text-4xl font-bold capitalize'>{tagline}</h1>
-        <div className='flex items-center gap-x-4'>
+        <div className='flex items-center justify-center gap-x-4'>
           <ShareButton
             propertyId={propertyId}
             name={name}

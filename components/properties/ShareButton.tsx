@@ -22,9 +22,8 @@ function ShareButton({ propertyId, name }: { propertyId: string; name: string })
         <Button
           variant='outline'
           size='icon'
-          className='p-2'
         >
-          <LuShare2 />
+          <LuShare2  className='h-6 w-6'/>
         </Button>
       </PopoverTrigger>
       <PopoverContent

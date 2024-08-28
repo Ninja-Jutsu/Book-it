@@ -9,10 +9,10 @@ const neuton = Neuton({ subsets: ['latin'], weight: '700' })
 
 function Navbar() {
   return (
-    <nav className='border-b container'>
+    <nav className='border-b container mb-5'>
       <div className='flex justify-between p-4 pb-2'>
         {/* Logo */}
-        <div className='flex items-center gap-5 flex-wrap md:relative group'>
+        <div className='flex items-center gap-5 md:relative group'>
           <Logo />
           <Link
             href='/'

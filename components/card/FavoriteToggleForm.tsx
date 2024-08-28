@@ -19,7 +19,10 @@ function FavoriteToggleForm({ propertyId, favoriteId }: FavoriteToggleFormProps)
   })
 
   return (
-    <FormContainer action={toggleFavorite}>
+    <FormContainer
+      action={toggleFavorite}
+      classes='flex items-center'
+    >
       <CardSubmitButton isFavorite={favoriteId ? true : false} />
     </FormContainer>
   )
