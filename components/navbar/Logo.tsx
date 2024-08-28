@@ -1,7 +1,6 @@
 import { GiCampingTent } from 'react-icons/gi'
 import { Button } from '../ui/button'
 import Link from 'next/link'
-import { Neuton } from 'next/font/google'
 function Logo() {
   return (
     <Button
