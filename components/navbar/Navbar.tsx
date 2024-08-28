@@ -11,21 +11,28 @@ function Navbar() {
   return (
     <nav className='border-b container'>
       <div className='flex justify-between p-4 pb-2'>
-        <div className='flex items-center gap-5 flex-wrap'>
+        {/* Logo */}
+        <div className='flex items-center gap-5 flex-wrap md:relative group'>
           <Logo />
           <Link
             href='/'
-            className={`${neuton.className} text-2xl text-nowrap`}
+            className={`${neuton.className} text-2xl md:text-3xl text-nowrap md:absolute md:opacity-0 md:top-[25%] md:right-0 group-hover:opacity-100 md:group-hover:translate-x-[125%] transition-all duration-300 ease-in`}
           >
             Book-it
           </Link>
         </div>
+        {/* Search Bar For large Screens*/}
+        <div className='container hidden md:flex justify-center p-2 items-center md:mx-4'>
+          <NavSearch />
+        </div>
+        {/* Login & DarkMode */}
         <div className='flex gap-4 items-center'>
           <DarkMode />
           <LinksDropdown />
         </div>
       </div>
-      <div className='container flex justify-center p-2'>
+      {/* Search Bar For small Screens*/}
+      <div className='container flex md:hidden justify-center p-2 items-center md:mx-4'>
         <NavSearch />
       </div>
     </nav>

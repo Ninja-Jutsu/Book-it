@@ -8,7 +8,7 @@ async function UserIcon() {
       <img
         src={profileImage}
         alt='user profile image'
-        className='w-6 h-6 rounded-full object-cover'
+        className='w-10 h-10 rounded-full object-cover'
       />
     )
   }
