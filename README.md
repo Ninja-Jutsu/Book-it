@@ -23,7 +23,7 @@ Password: 123456
 
 **Installation:**
 
-1. Clone the repository: `git clone https://github.com/Ninja-Jutsu/home-away.git`
+1. Clone the repository: `git clone https://github.com/Ninja-Jutsu/Book-it.git`
 2. Install dependencies: `npm install`
 3. Start the development server: `npm run dev`
 4. For the booking and the creation of rentals a connection to a sql DataBase is required (Check the actions)
