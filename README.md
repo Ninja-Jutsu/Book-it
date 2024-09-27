@@ -16,6 +16,10 @@ This web application is responsive and suitable for all devices
 - Review a monthly report of their reservations
 - Pay and receive payment (stripe api)
 
+**Test Coordinations:**
+Email: book.test@bardachdev.com
+Password: 123456
+
 **Installation:**
 
 1. Clone the repository: `git clone https://github.com/Ninja-Jutsu/home-away.git`
