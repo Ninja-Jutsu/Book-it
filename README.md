@@ -16,7 +16,8 @@ This web application is responsive and suitable for all devices
 - Review a monthly report of their reservations
 - Pay and receive payment (stripe api)
 
-**Test Coordinations:**
+**Test credentials:**
+Admin user credentials:
 Email: book.test@bardachdev.com
 Password: 123456
 
